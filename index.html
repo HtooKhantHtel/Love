@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            text-align: center;
+        }
+
+        img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #ff4d6d;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        .no {
+            background-color: #333;
+            color: white;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+            animation: floatUp 1s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="photos/cartoon-cat-holding-heart-with-word-love-it_863013-26029-removebg-preview.png" alt="Valentine Image" id="mainImage">
+    <h1>Will you be my wifey?</h1>
+    
+    <div class="buttons">
+        <button class="yes" id="yesBtn">Yes</button>
+        <button class="no" id="noBtn">No</button>
+    </div>
+
+    <script>
+        function showHeartsAndRedirect() {
+            for (let i = 0; i < 10; i++) {
+                let heart = document.createElement("span");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+
+                heart.style.left = x + "px";
+                heart.style.top = y + "px";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 1000);
+            }
+
+            setTimeout(() => {
+                window.location.href = "love.html";
+            }, 1000);
+        }
+
+        document.getElementById("yesBtn").addEventListener("click", showHeartsAndRedirect);
+
+        document.getElementById("noBtn").addEventListener("click", function() {
+            document.getElementById("mainImage").src = "photos/angry.png";
+
+            this.innerText = "Yes";
+            this.classList.remove("no");
+            this.classList.add("yes");
+            this.id = "yesBtn";
+
+            this.removeEventListener("click", arguments.callee); 
+            this.addEventListener("click", showHeartsAndRedirect); 
+        });
+    </script>
+
+</body>
+</html>
